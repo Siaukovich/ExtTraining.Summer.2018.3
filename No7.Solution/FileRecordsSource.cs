@@ -43,30 +43,33 @@ namespace No7.Solution
             int lineNumber = 0;            
             using (var sr = new StreamReader(sourcePath))
             {
-                var recordLine = sr.ReadLine();
-                if (recordLine == null)
+                while (true)
                 {
-                    yield break;
-                }
+                    var recordLine = sr.ReadLine();
+                    if (recordLine == null)
+                    {
+                        yield break;
+                    }
 
-                Record record = null;
-                try
-                {
-                    record = ParseAndCreateRecord(recordLine.Split(), recordFactory, validator);
-                }
-                catch (ArgumentException e)
-                {
-                    string logMessage = $"{e.Message}. Invalid record was on line #{lineNumber}";
+                    Record record = null;
+                    try
+                    {
+                        record = ParseAndCreateRecord(recordLine.Split(), recordFactory, validator);
+                    }
+                    catch (ArgumentException e)
+                    {
+                        string logMessage = $"{e.Message}. Invalid record was on line #{lineNumber}";
 
-                    logger.Warning(logMessage);
-                }
+                        logger.Warning(logMessage);
+                    }
 
-                if (record != null)
-                {
-                    yield return record;
+                    if (record != null)
+                    {
+                        yield return record;
+                    }
+
+                    lineNumber++;
                 }
-                
-                lineNumber++;
             }
 
             void ThrowForInvalidParameters()
