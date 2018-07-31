@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\IRecordsTransferService.cs" />
     <Compile Include="Interfaces\IRecordValidator.cs" />
     <Compile Include="Interfaces\ISimpleLogger.cs" />
+    <Compile Include="LoggerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Record.cs" />
     <Compile Include="RecordFactory.cs" />

@@ -8,6 +8,6 @@ namespace No7.Solution
     // а только лишь написав новый класс, реализующий данный интерфейс.
     public interface IRecordDestination
     {
-        void WriteRecords(IEnumerable<Record> records, ISimpleLogger logger);
+        void WriteRecords(IEnumerable<Record> records);
     }
 }

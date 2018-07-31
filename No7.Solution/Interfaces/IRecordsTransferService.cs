@@ -10,7 +10,6 @@
         void TransferRecords(IRecordsSource source, 
                              IRecordDestination destination, 
                              IRecordValidator validator,
-                             IRecordFactory recordFactory, 
-                             ISimpleLogger logger);
+                             IRecordFactory recordFactory);
     }
 }

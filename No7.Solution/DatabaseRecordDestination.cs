@@ -15,7 +15,7 @@
             this.connectionString = source ?? throw new ArgumentNullException(nameof(source));
         }
 
-        public void WriteRecords(IEnumerable<Record> records, ISimpleLogger logger)
+        public void WriteRecords(IEnumerable<Record> records)
         {
             int recordCount = 0;
             using (var connection = new SqlConnection(this.connectionString))
@@ -44,7 +44,7 @@
                 connection.Close();
             }
 
-            logger.Info($"{recordCount} trades processed");
+            LoggerService.Instance.Info($"{recordCount} trades processed");
         }
     }
 }

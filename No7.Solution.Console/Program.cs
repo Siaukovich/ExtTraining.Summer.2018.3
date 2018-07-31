@@ -9,12 +9,14 @@
             string sourceFile = ConfigurationManager.AppSettings["SourceFile"];
             string connectionString = ConfigurationManager.ConnectionStrings["TradeData"].ConnectionString;
 
-            IRecordsSource source = new FileRecordsSource(sourceFile, SimpleLogger.Instance);
+            LoggerService.Instance.Logger = SimpleLogger.Instance;
+
+            IRecordsSource source = new FileRecordsSource(sourceFile);
             IRecordDestination destination = new DatabaseRecordDestination(connectionString);
 
             IRecordsTransferService service = RecordTransferService.Instance;
 
-            service.TransferRecords(source, destination, FileRecordValidator.Instance, RecordFactory.Instance, SimpleLogger.Instance);
+            service.TransferRecords(source, destination, FileRecordValidator.Instance, RecordFactory.Instance);
         }
     }
 }

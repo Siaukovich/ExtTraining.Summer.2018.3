@@ -8,14 +8,12 @@ namespace No7.Solution
     public class FileRecordsSource : IRecordsSource
     {
         private readonly string sourcePath;
-        private readonly ISimpleLogger logger;
         
-        public FileRecordsSource(string sourcePath, ISimpleLogger logger)
+        public FileRecordsSource(string sourcePath)
         {
             ThrowForInvalidParammeters();
             
             this.sourcePath = sourcePath;
-            this.logger = logger;
 
             void ThrowForInvalidParammeters()
             {
@@ -26,12 +24,7 @@ namespace No7.Solution
                 
                 if (!File.Exists(sourcePath))
                 {
-                    throw new ArgumentException("No such source file.");
-                }
-
-                if (logger == null)
-                {
-                    throw new ArgumentNullException(nameof(logger));
+                    throw new ArgumentException("No such source file");
                 }
             }
         }
@@ -60,7 +53,7 @@ namespace No7.Solution
                     {
                         string logMessage = $"{e.Message}. Invalid record was on line #{lineNumber}";
 
-                        logger.Warning(logMessage);
+                        LoggerService.Instance.Warning(logMessage);
                     }
 
                     if (record != null)
@@ -90,12 +83,12 @@ namespace No7.Solution
         {
             if (parts.Length != 3)
             {
-                throw new ArgumentException("Not valid amount of parts.");
+                throw new ArgumentException("Not valid amount of parts");
             }
 
             if (parts[0].Length != 6)
             {
-                throw new ArgumentException("Not valid currency codes.");
+                throw new ArgumentException("Not valid currency codes");
             }
                     
             var sourceCurrency = parts[0].Substring(0, 3);

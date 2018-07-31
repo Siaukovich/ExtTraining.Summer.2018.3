@@ -20,11 +20,10 @@
         public void TransferRecords(IRecordsSource source,
                                     IRecordDestination destination, 
                                     IRecordValidator validator,
-                                    IRecordFactory recordFactory, 
-                                    ISimpleLogger logger)
+                                    IRecordFactory recordFactory)
         {
             var validRecords = source.ReadValidRecords(validator, recordFactory);
-            destination.WriteRecords(validRecords, logger);
+            destination.WriteRecords(validRecords);
         }
     }
 }
