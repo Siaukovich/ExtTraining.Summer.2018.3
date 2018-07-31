@@ -1,16 +1,15 @@
-﻿using System.Reflection;
-
-namespace No7.Solution.Console
+﻿namespace No7.Solution.Console
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("No7.Solution.Console.trades.txt");
+            var source = new FileRecordsSource("sourcefile.txt", SimpleLogger.Instance);
+            var destination = new DatabaseRecordDestination();
+            
+            var service = RecordTransferService.Instance;
 
-            var tradeProcessor = new TradeHandler();
-
-            tradeProcessor.HandleTrades(tradeStream);
+            service.TransferRecords(source, destination, FileRecordValidator.Instance, RecordFactory.Instance, SimpleLogger.Instance);
         }
     }
 }
