@@ -53,7 +53,7 @@ namespace No7.Solution
                     {
                         string logMessage = $"{e.Message}. Invalid record was on line #{lineNumber}";
 
-                        LoggerService.Instance.Warning(logMessage);
+                        LoggerService.Warning(logMessage);
                     }
 
                     if (record != null)

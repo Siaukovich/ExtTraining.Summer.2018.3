@@ -9,7 +9,7 @@
             string sourceFile = ConfigurationManager.AppSettings["SourceFile"];
             string connectionString = ConfigurationManager.ConnectionStrings["TradeData"].ConnectionString;
 
-            LoggerService.Instance.Logger = SimpleLogger.Instance;
+            LoggerService.Logger = SimpleLogger.Instance;
 
             IRecordsSource source = new FileRecordsSource(sourceFile);
             IRecordDestination destination = new DatabaseRecordDestination(connectionString);

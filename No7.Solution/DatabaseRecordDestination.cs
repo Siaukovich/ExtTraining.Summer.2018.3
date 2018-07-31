@@ -44,7 +44,7 @@
                 connection.Close();
             }
 
-            LoggerService.Instance.Info($"{recordCount} trades processed");
+            LoggerService.Info($"{recordCount} trades processed");
         }
     }
 }

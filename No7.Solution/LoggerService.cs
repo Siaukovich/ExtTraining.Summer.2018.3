@@ -1,57 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace No7.Solution
+﻿namespace No7.Solution
 {
+    using System;
+
     // Класс-точка доступа к любому логгеру, реализующему ISimpleLogger.
     // Зависимость внедряется через свойство.
-    public class LoggerService
+    public static class LoggerService
     {
-        private static readonly Lazy<LoggerService> LazyLogger = 
-            new Lazy<LoggerService>(() => new LoggerService());
-
-        public static LoggerService Instance => LazyLogger.Value;
-
         // Внедрение зависимости через свойство не самый лучший вариант, 
-        // но для синглтона конструктор должен быть закрытым,
-        // а использование "дефолтного" логгера не кажется хорошей идеей.
-        public ISimpleLogger Logger { get; set; }
+        // но использование "дефолтного" логгера не кажется хорошей идеей,
+        // поскольку его могут удалить и тогда всё рухнет.
+        public static ISimpleLogger Logger { get; set; }
 
-        private LoggerService()
+        public static void Warning(string msg)
         {
+            ThrowForNullMessage(msg);
+
+            ThrowForNullLogger();
+
+            Logger.Warning(msg);
         }
 
-        public void Warning(string msg)
+        public static void Info(string msg)
         {
-            this.ThrowForNullMessage(msg);
+            ThrowForNullMessage(msg);
 
-            this.ThrowForNullLogger();
+            ThrowForNullLogger();
 
-            this.Logger.Warning(msg);
+            Logger.Info(msg);
         }
 
-        public void Info(string msg)
+        public static void Error(string msg)
         {
-            this.ThrowForNullMessage(msg);
+            ThrowForNullMessage(msg);
 
-            this.ThrowForNullLogger();
+            ThrowForNullLogger();
 
-            this.Logger.Info(msg);
+            Logger.Error(msg);
         }
 
-        public void Error(string msg)
-        {
-            this.ThrowForNullMessage(msg);
-
-            this.ThrowForNullLogger();
-
-            this.Logger.Error(msg);
-        }
-
-        private void ThrowForNullMessage(string msg)
+        private static void ThrowForNullMessage(string msg)
         {
             if (msg == null)
             {
@@ -59,9 +46,9 @@ namespace No7.Solution
             }
         }
 
-        private void ThrowForNullLogger()
+        private static void ThrowForNullLogger()
         {
-            if (this.Logger == null)
+            if (Logger == null)
             {
                 throw new InvalidOperationException("Logger is null.");
             }
