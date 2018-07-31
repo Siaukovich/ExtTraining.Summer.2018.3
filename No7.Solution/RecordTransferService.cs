@@ -24,8 +24,7 @@
                                     ISimpleLogger logger)
         {
             var validRecords = source.ReadValidRecords(validator, recordFactory);
-            destination.WriteRecords(validRecords);
-            logger.Info($"{validRecords.Count()}");
+            destination.WriteRecords(validRecords, logger);
         }
     }
 }

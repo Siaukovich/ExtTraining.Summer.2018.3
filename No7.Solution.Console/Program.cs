@@ -7,9 +7,10 @@
         static void Main(string[] args)
         {
             string sourceFile = ConfigurationManager.AppSettings["SourceFile"];
+            string connectionString = ConfigurationManager.ConnectionStrings["TradeData"].ConnectionString;
 
             IRecordsSource source = new FileRecordsSource(sourceFile, SimpleLogger.Instance);
-            IRecordDestination destination = new DatabaseRecordDestination();
+            IRecordDestination destination = new DatabaseRecordDestination(connectionString);
 
             IRecordsTransferService service = RecordTransferService.Instance;
 

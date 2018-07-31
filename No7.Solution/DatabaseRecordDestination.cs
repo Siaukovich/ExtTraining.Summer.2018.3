@@ -1,5 +1,6 @@
 ﻿namespace No7.Solution
 {
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.SqlClient;
@@ -7,15 +8,22 @@
     // Конкретная реализация "записывающего" класса, подразумевающая запись в базу данных.
     public class DatabaseRecordDestination : IRecordDestination
     {
-        public void WriteRecords(IEnumerable<Record> records)
+        private readonly string connectionString;
+
+        public DatabaseRecordDestination(string source)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["TradeData"].ConnectionString;
-            using (var connection = new SqlConnection(connectionString))
+            this.connectionString = source ?? throw new ArgumentNullException(nameof(source));
+        }
+
+        public void WriteRecords(IEnumerable<Record> records, ISimpleLogger logger)
+        {
+            int recordCount = 0;
+            using (var connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
-                using(var transaction = connection.BeginTransaction())
+                using (var transaction = connection.BeginTransaction())
                 {
-                    foreach(var trade in records)
+                    foreach (var trade in records)
                     {
                         var command = connection.CreateCommand();
                         command.Transaction = transaction;
@@ -27,12 +35,16 @@
                         command.Parameters.AddWithValue("@price", trade.Price);
 
                         command.ExecuteNonQuery();
+                        recordCount++;
                     }
 
                     transaction.Commit();
                 }
+
                 connection.Close();
-            }   
+            }
+
+            logger.Info($"{recordCount} trades processed");
         }
     }
 }
