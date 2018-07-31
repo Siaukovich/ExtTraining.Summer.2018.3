@@ -20,12 +20,12 @@ namespace No7.Solution
         {
             ThrowForNullArguments();
 
-            if (!destinationCurrency.All(char.IsUpper))
+            if (destinationCurrency.Length != 3 || !destinationCurrency.All(char.IsUpper))
             {
                 throw new ArgumentException("Invalid dectination currency", nameof(destinationCurrency));
             }
             
-            if (!sourceCurrency.All(char.IsUpper))
+            if (sourceCurrency.Length != 3 || !sourceCurrency.All(char.IsUpper))
             {
                 throw new ArgumentException("Invalid source currency", nameof(sourceCurrency));
             }

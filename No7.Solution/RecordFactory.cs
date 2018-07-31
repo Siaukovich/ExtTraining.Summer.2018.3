@@ -22,8 +22,14 @@ namespace No7.Solution
                                       IRecordValidator validator)
         {
             validator.Check(destinationCurrency, sourceCurrency, price, lots);
-            
-            return new Record(destinationCurrency, sourceCurrency, decimal.Parse(price), float.Parse(lots));
+
+            var numberFormat = NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint;
+            var invariantCulture = CultureInfo.InvariantCulture;
+
+            return new Record(destinationCurrency,
+                              sourceCurrency,
+                              decimal.Parse(price, numberFormat, invariantCulture),
+                              float.Parse(lots, numberFormat, invariantCulture));
         }
     }
 }

@@ -54,7 +54,7 @@ namespace No7.Solution
                     Record record = null;
                     try
                     {
-                        record = ParseAndCreateRecord(recordLine.Split(), recordFactory, validator);
+                        record = ParseAndCreateRecord(recordLine.Split(",".ToCharArray()), recordFactory, validator);
                     }
                     catch (ArgumentException e)
                     {
@@ -92,9 +92,14 @@ namespace No7.Solution
             {
                 throw new ArgumentException("Not valid amount of parts.");
             }
+
+            if (parts[0].Length != 6)
+            {
+                throw new ArgumentException("Not valid currency codes.");
+            }
                     
             var sourceCurrency = parts[0].Substring(0, 3);
-            var destinationCurrency = parts[0].Substring(0, 3);
+            var destinationCurrency = parts[0].Substring(3, 3);
 
             return recordFactory.CreateNewRecord(destinationCurrency, sourceCurrency, parts[2], parts[1], validator);
         }

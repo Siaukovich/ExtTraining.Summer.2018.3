@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,7 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseRecordDestination.cs" />
+    <Compile Include="FileRecordsSource.cs" />
+    <Compile Include="FileRecordValidator.cs" />
+    <Compile Include="Interfaces\IRecordDestination.cs" />
+    <Compile Include="Interfaces\IRecordFactory.cs" />
+    <Compile Include="Interfaces\IRecordsSource.cs" />
+    <Compile Include="Interfaces\IRecordsTransferService.cs" />
+    <Compile Include="Interfaces\IRecordValidator.cs" />
+    <Compile Include="Interfaces\ISimpleLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Record.cs" />
+    <Compile Include="RecordFactory.cs" />
+    <Compile Include="RecordTransferService.cs" />
+    <Compile Include="SimpleLogger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

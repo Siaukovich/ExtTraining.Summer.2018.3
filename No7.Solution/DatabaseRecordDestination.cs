@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace No7.Solution
+﻿namespace No7.Solution
 {
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Data.SqlClient;
+
     // Конкретная реализация "записывающего" класса, подразумевающая запись в базу данных.
     public class DatabaseRecordDestination : IRecordDestination
     {
